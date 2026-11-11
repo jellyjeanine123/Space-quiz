@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Is Space Black? Quiz</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #000428, #004e92);
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+.container{
+    max-width: 700px;
+    margin: auto;
+    background: rgba(255,255,255,0.1);
+    padding: 25px;
+    border-radius: 15px;
+}
+
+h1{
+    color: #ffd700;
+}
+
+.question{
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+button{
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #1e90ff;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+button:hover{
+    background: #0f68c4;
+}
+
+#result{
+    font-size: 1.3rem;
+    margin-top: 20px;
+    color: #ffd700;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🌌 Why Is Space Black? Quiz</h1>
+
+    <div id="quiz">
+        <div class="question" id="question"></div>
+        <div id="answers"></div>
+    </div>
+
+    <div id="result"></div>
+</div>
+
+<script>
+const quizData = [
+{
+    question: "Approximately how old is the universe?",
+    answers: [
+        "14 billion years",
+        "100 million years",
+        "500 billion years",
+        "1 billion years"
+    ],
+    correct: 0
+},
+{
+    question: "What is one reason space appears black?",
+    answers: [
+        "There are no stars",
+        "The universe is not infinitely old",
+        "The Sun is too small",
+        "Earth blocks all light"
+    ],
+    correct: 1
+},
+{
+    question: "What is happening to the universe?",
+    answers: [
+        "It is shrinking",
+        "It is standing still",
+        "It is expanding",
+        "It is disappearing"
+    ],
+    correct: 2
+},
+{
+    question: "Why hasn't all starlight reached us?",
+    answers: [
+        "Stars are switched off",
+        "Clouds block it",
+        "Light from many distant stars hasn't reached Earth yet",
+        "The Moon absorbs it"
+    ],
+    correct: 2
+},
+{
+    question: "According to the presentation, some distant light becomes...",
+    answers: [
+        "Brighter",
+        "Invisible to our eyes",
+        "Blue",
+        "Louder"
+    ],
+    correct: 1
+}
+];
+
+let currentQuestion = 0;
+let score = 0;
+
+function loadQuestion() {
+    const question = document.getElementById("question");
+    const answers = document.getElementById("answers");
+
+    question.textContent = quizData[currentQuestion].question;
+    answers.innerHTML = "";
+
+    quizData[currentQuestion].answers.forEach((answer, index) => {
+        const button = document.createElement("button");
+        button.textContent = answer;
+        button.onclick = () => checkAnswer(index);
+        answers.appendChild(button);
+    });
+}
+
+function checkAnswer(selected) {
+    if(selected === quizData[currentQuestion].correct){
+        score++;
+    }
+
+    currentQuestion++;
+
+    if(currentQuestion < quizData.length){
+        loadQuestion();
+    } else {
+        showResult();
+    }
+}
+
+function showResult(){
+    document.getElementById("quiz").innerHTML = "";
+    document.getElementById("result").innerHTML =
+        `✅ You scored ${score} out of ${quizData.length}!`;
+}
+
+loadQuestion();
+</script>
+
+</body>
+</html>
